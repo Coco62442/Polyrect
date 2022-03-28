@@ -172,7 +172,7 @@ export default {
                             this.getAllAbsencesByEleve(idEleve, index);
                         }
                         else {
-                            if (repEleve.status == 401) {
+                            if (repDel.status == 401) {
                                     alert('Vous n\'êtes plus connecté');
                                     this.$router.push('/prof');
                                 }

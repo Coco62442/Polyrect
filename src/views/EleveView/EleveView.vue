@@ -1,0 +1,240 @@
+<template>
+    <div>
+        <button v-on:click='eleveLogout()' class="deconnexion">Déconnexion</button>
+
+        <ul class="ulGlobal" v-for="(mat, index) in matieres" v-bind:key="mat">
+            <li>{{ mat.nom }}</li>
+            <ul class="notesMat" v-for="note in notesParMatiere[index]" v-bind:key="note">
+                <li class="notesMat">{{ note.note }}</li>
+            </ul>
+            <li v-if="moyMat[index] != undefined"> Moyenne: {{ moyMat[index] }}</li>
+        </ul>
+        <li>Moyenne générale: <span v-if="moy != undefined">{{ moy }}</span></li>
+        <h4>Tes absences:</h4>
+        <div v-for="absence in listeAbsence" :key="absence._id" class="absence">
+            <ul>
+				<li>
+                	Date: {{ absence.date }}
+            	</li>
+				<li>
+					Justifie: {{ absence.justifie }}
+				</li>
+				<li>
+					Justification: {{ absence.justification }}
+				</li>
+			</ul>
+        </div>
+		<div class="container">
+			<form @submit.prevent="putEleve" class="form">
+				<h4>Formulaire pour mettre à jour tes informations: </h4>
+				<div>
+				<input v-model="emailPut" type="email" placeholder="Entrer un email">
+				</div>
+				<div>
+				<input v-model="mdpPut" type="password" placeholder="Entrer un mot de passe">
+				</div>
+				<button type="submit">Mettre à jour</button>
+			</form>
+		</div>
+    </div>
+</template>
+
+
+<script>
+
+    const SERV = 'http://localhost:4000/';
+
+    const API_URL_MAT = SERV + 'matiere';
+    const API_URL_NOTE = SERV + 'note';
+    const API_URL_ELEVE = SERV + 'eleve';
+    const API_URL_ABSENCE = SERV + 'absence';
+
+    export default {
+        name: 'eleve',
+        data: () => ({
+            id: localStorage.getItem('id'),
+            eleve: [],
+            matieres: [],
+            notesParMatiere: [],
+            moyMat: [],
+            emailPut: null,
+            mdpPut: null,
+            listeAbsence: [],
+        }),
+        beforeMount(){
+            this.getListMatieres()
+            .then(() => {
+                this.getNotesByMatiere();
+            });
+            this.getListeAbsence();
+        },
+        computed: {
+            moy() {
+                var moyTotal = 0;
+                var vide = 0;
+                for (let i = 0; i < this.notesParMatiere.length; i++) {
+                    if (this.notesParMatiere[i].length > 0) {
+                        var total = 0;
+                        var nbr = 0;
+                    
+                        for (let j = 0; j < this.notesParMatiere[i].length; j++) {
+                            total += this.notesParMatiere[i][j].note;
+                            nbr += 1;
+                        };
+                        this.moyMat[i] = total/nbr;
+                        moyTotal += this.moyMat[i];
+                    }
+                    else {
+                        vide += 1;
+                    };
+                };
+                return moyTotal/(this.notesParMatiere.length - vide);
+            }
+        },
+        methods: {
+            eleveLogout() {
+                localStorage.removeItem('token');
+                localStorage.removeItem('id');
+                localStorage.clear();
+                this.$router.push('/eleve');
+            },
+
+            async getListMatieres() {
+                try {
+                    let repMatiere = await fetch(API_URL_MAT, {
+                        headers: {
+                            'content-type': 'application/json',
+                            'authorization': localStorage.getItem('token'),
+                        }
+                    });
+                    if (repMatiere.ok) {
+                        let data = await repMatiere.json();
+                        this.matieres = data.mats;
+                    }
+                    else {
+                        if (repMatiere.status == 401) {
+                                alert('Vous n\'êtes plus connecté');
+                                this.$router.push('/eleve');
+                            }
+                        else {
+                            console.log("Erreur du serveur");
+                            alert("Le chargement des donnés n'a pas pu être fait");
+                        };
+                    };
+                } catch (error) {
+                    console.log(err);
+                }
+            },
+
+            async getNotesByMatiere() {
+                for (let i = 0; i < this.matieres.length; i++) {
+                    try {
+                        let repNote = await fetch(API_URL_NOTE + '/note/' + this.id + '/' + this.matieres[i]._id, {
+                            headers: {
+                                'content-type': 'application/json',
+                                'authorization': localStorage.getItem('token'),
+                            }
+                        });
+                        if (repNote.ok) {
+                            let data = await repNote.json();
+                            this.notesParMatiere[i] = data.notes;
+                        }
+                        else {
+                            if (repNote.status == 401) {
+                                    alert('Vous n\'êtes plus connecté');
+                                    this.$router.push('/eleve');
+                                }
+                            else {
+                                alert('Problème du serveur');
+                            };
+                        };
+                    }
+                    catch{
+                        console.log("err");
+                    }
+                }
+            },
+
+            async putEleve() {
+                await fetch(API_URL_ELEVE + '/' + this.id, {
+                    method: "PUT",
+                    body: JSON.stringify({
+                        email: this.emailPut,
+                        mdp: this.mdpPut
+                    }),
+                    headers: {
+                        'content-type': 'application/json',
+                        'authorization': localStorage.getItem('token'),
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Informations mise à jour');
+						this.emailPut = '';
+						this.mdpPut = '';
+                    }
+                    else {
+                        if (response.status == 401) {
+                                alert('Vous n\'êtes plus connecté');
+                                this.$router.push('/eleve');
+                            }
+                        else {
+                            alert('Problème lors de la mise à jour de l\'élève');
+                        };
+                    };
+                });
+            },
+
+            async getListeAbsence() {
+                try {
+                    let repAbsence = await fetch(API_URL_ABSENCE, {
+                        headers: {
+                            'content-type': 'application/json',
+                            'authorization': localStorage.getItem('token'),
+                        }
+                    });
+                    if (repAbsence.ok) {
+                        let data = await repAbsence.json();
+                        this.listeAbsence = data.absences;
+                        for (let i = 0; i < this.listeAbsence.length; i++) {
+                            if (this.listeAbsence[i].justifie) {
+                                this.listeAbsence[i].justifie = 'Oui';
+                            }
+                            else {
+                                this.listeAbsence[i].justifie = 'Non';
+                            };
+                        };
+                    }
+                    else {
+                        if (repAbsence.status == 401) {
+                                alert('Vous n\'êtes plus connecté');
+                                this.$router.push('/eleve');
+                            }
+                        else {
+                            alert('Problème du serveur');
+                        };
+                    };
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        },
+    }
+</script>
+
+<style scoped>
+.absence {
+    display: inline-block;
+}
+
+.ulGlobal {
+	margin: 3% auto;
+	width: 30%;
+}
+
+.notesMat {
+	margin: auto;
+	display: inline;
+}
+
+</style>

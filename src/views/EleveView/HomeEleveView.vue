@@ -25,7 +25,7 @@
 
 <script>
 
-const SERV = 'http://localhost:4000/'
+const SERV = 'https://polyrecte-serveur.herokuapp.com/'
 const API_URL = SERV + 'eleve';
 
 export default {

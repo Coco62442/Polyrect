@@ -22,7 +22,7 @@
 </template>
 
 <script>
-    const API_URL = 'http://localhost:4000/prof';
+    const API_URL = 'https://polyrecte-serveur.herokuapp.com/prof';
 
     export default {
         name: 'homeProf',

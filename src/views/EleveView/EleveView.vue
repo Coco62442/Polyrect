@@ -42,7 +42,7 @@
 
 <script>
 
-    const SERV = 'http://localhost:4000/';
+    const SERV = 'https://polyrecte-serveur.herokuapp.com/';
 
     const API_URL_MAT = SERV + 'matiere';
     const API_URL_NOTE = SERV + 'note';

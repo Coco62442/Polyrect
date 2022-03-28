@@ -134,7 +134,7 @@
 
 <script>
 
-const SERV = 'http://localhost:4000/';
+const SERV = 'https://polyrecte-serveur.herokuapp.com/';
 const API_URL_ELEVE = SERV + 'eleve';
 const API_URL_PROF = SERV + 'prof';
 const API_URL_ADMIN = SERV + 'admin';

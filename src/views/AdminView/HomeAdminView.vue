@@ -21,7 +21,8 @@
 </template>
 
 <script>
-    const API_URL = 'http://localhost:4000/admin';
+	const SERV = 'https://polyrecte-serveur.herokuapp.com/'
+    const API_URL = SERV + 'admin';
 
     export default {
         name: 'homeAdmin',

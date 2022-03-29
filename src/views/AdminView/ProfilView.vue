@@ -19,20 +19,20 @@
 
 <script>
 
-const SERV = 'https://polyrecte-serveur.herokuapp.com/';
+const SERV = top.glob;;
 const API_URL_ADMIN = SERV + 'admin';
 
 export default {
     name: 'admin',
     data: () => ({
-        idAdmin: localStorage.getItem('id'),
+        idAdmin: localStorage.getItem('idAdmin'),
         emailPut: null,
         mdpPut: null,
     }),
     methods: {
         adminLogout() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('id');
+            localStorage.removeItem('tokenAdmin');
+            localStorage.removeItem('idAdmin');
             localStorage.clear();
             this.$router.push('/admin');
         },
@@ -46,7 +46,7 @@ export default {
                 }),
                 headers: {
                     'content-type': 'application/json',
-                    'authorization': localStorage.getItem('token'),
+                    'authorization': localStorage.getItem('tokenAdmin'),
                 }
             })
             .then(response => {

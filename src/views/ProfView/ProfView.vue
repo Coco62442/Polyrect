@@ -28,7 +28,7 @@
 
 <script>
 
-const SERV = 'https://polyrecte-serveur.herokuapp.com/'
+const SERV = top.glob;
 const API_URL_ELEVE = SERV + 'eleve';
 const API_URL_MAT = SERV + 'matiere';
 const API_URL_NOTE = SERV + 'note';
@@ -37,7 +37,7 @@ const API_URL_NOTE = SERV + 'note';
 export default {
     name: 'prof',
     data: () => ({
-        idProf: localStorage.getItem('id'),
+        idProf: localStorage.getItem('idProf'),
         idMat: String,
         listeEleve: [],
         note: [],
@@ -50,8 +50,8 @@ export default {
     methods: {
 
         profLogout() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('id');
+            localStorage.removeItem('tokenProf');
+            localStorage.removeItem('idProf');
             localStorage.clear();
             this.$router.push('/prof');
         },
@@ -61,7 +61,7 @@ export default {
                 let repEleve = await fetch(API_URL_ELEVE, {
                     headers: {
                         'content-type': 'application/json',
-                        'authorization': localStorage.getItem('token'),
+                        'authorization': localStorage.getItem('tokenProf'),
                     }
                 });
                 if (repEleve.ok) {
@@ -70,7 +70,6 @@ export default {
                 }
                 else {
                     if (repEleve.status == 401) {
-                        alert('Vous n\'êtes plus connecté');
                         this.$router.push('/prof');
                     }
                     else {
@@ -88,7 +87,7 @@ export default {
                 let repMat = await fetch(API_URL_MAT + '/' + this.idProf, {
                     headers: {
                         'content-type': 'application/json',
-                        'authorization': localStorage.getItem('token'),
+                        'authorization': localStorage.getItem('tokenProf'),
                     }
                 });
                 if (repMat.ok) {
@@ -97,7 +96,6 @@ export default {
                 }
                 else {
                     if (repMat.status == 401) {
-                        alert('Vous n\'êtes plus connecté');
                         this.$router.push('/prof');
                     }
                     else {
@@ -118,7 +116,7 @@ export default {
                         method: "POST",
                         headers: {
                             'content-type': 'application/json',
-                            'authorization': localStorage.getItem('token'),
+                            'authorization': localStorage.getItem('tokenProf'),
                         },
                         body: JSON.stringify({
                             note: this.note[i],

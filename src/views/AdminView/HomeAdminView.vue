@@ -21,7 +21,7 @@
 </template>
 
 <script>
-	const SERV = 'https://polyrecte-serveur.herokuapp.com/'
+	const SERV = top.glob;
     const API_URL = SERV + 'admin';
 
     export default {
@@ -44,8 +44,8 @@
                     if (repAdminLogin.ok) {
                         repAdminLogin = await repAdminLogin.json();
                         this.$router.push('./loginAdmin');
-                        localStorage.setItem('id', repAdminLogin._id);
-                        localStorage.setItem('token', repAdminLogin.token);
+                        localStorage.setItem('idAdmin', repAdminLogin._id);
+                        localStorage.setItem('tokenAdmin', repAdminLogin.token);
                     }
                     else {
                         alert('Mot de passe ou identifiant incorrect');

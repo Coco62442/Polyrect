@@ -2,6 +2,10 @@
   <router-view/>
 </template>
 
+<script>
+	top.glob = 'https://polyrecte-serveur.herokuapp.com/';
+	
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -11,13 +15,20 @@
   color: #2c3e50;
 }
 
+a, a:visited, a:hover {
+	color: rgb(61, 39, 80);
+}
+
+a:focus {
+	color: #9147ff;
+}
+
 nav {
   padding: 30px;
 }
 
-nav a {
+.nav a {
   font-weight: bold;
-  color: #2c3e50;
   margin: 2%;
 }
 

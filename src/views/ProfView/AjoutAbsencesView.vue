@@ -42,7 +42,7 @@
 
 <script>
 
-const SERV = 'https://polyrecte-serveur.herokuapp.com/'
+const SERV = top.glob;
 const API_URL_ELEVE = SERV + 'eleve';
 const API_URL_ABSENCE = SERV + 'absence';
 
@@ -64,8 +64,8 @@ export default {
     },
     methods: {
         profLogout() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('id');
+            localStorage.removeItem('tokenProf');
+            localStorage.removeItem('idProf');
             localStorage.clear();
             this.$router.push('/prof');
         },
@@ -75,7 +75,7 @@ export default {
                 let repEleve = await fetch(API_URL_ELEVE, {
                     headers: {
                         'content-type': 'application/json',
-                        'authorization': localStorage.getItem('token'),
+                        'authorization': localStorage.getItem('tokenProf'),
                     }
                 });
                 if (repEleve.ok) {
@@ -84,7 +84,6 @@ export default {
                 }
                 else {
                     if (repEleve.status == 401) {
-                            alert('Vous n\'êtes plus connecté');
                             this.$router.push('/prof');
                         }
                     else {
@@ -109,7 +108,7 @@ export default {
                 let repAbsences = await fetch(API_URL_ABSENCE + '/' + idEleve, {
                     headers: {
                         'content-type': 'application/json',
-                        'authorization': localStorage.getItem('token'),
+                        'authorization': localStorage.getItem('tokenProf'),
                     }
                 });
                 if (repAbsences.ok) {
@@ -153,7 +152,7 @@ export default {
                     }),
                     headers: {
                         'content-type': 'application/json',
-                        'authorization': localStorage.getItem('token'),
+                        'authorization': localStorage.getItem('tokenProf'),
                     }
                 });
                 if (repAbsence.ok) {

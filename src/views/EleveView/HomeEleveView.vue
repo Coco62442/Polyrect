@@ -25,7 +25,7 @@
 
 <script>
 
-const SERV = 'https://polyrecte-serveur.herokuapp.com/'
+const SERV = top.glob;
 const API_URL = SERV + 'eleve';
 
 export default {
@@ -59,8 +59,8 @@ export default {
           repEleveLogin = await repEleveLogin.json();
           this.$router.push('./loginEleve');
           localStorage.clear();
-          localStorage.setItem('id', repEleveLogin._id);
-          localStorage.setItem('token', repEleveLogin.token);
+          localStorage.setItem('idEleve', repEleveLogin._id);
+          localStorage.setItem('tokenEleve', repEleveLogin.token);
         }
         else {
           alert('Mot de passe ou identifiant incorrect');

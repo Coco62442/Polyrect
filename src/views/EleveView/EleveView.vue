@@ -42,7 +42,7 @@
 
 <script>
 
-    const SERV = 'https://polyrecte-serveur.herokuapp.com/';
+    const SERV = top.glob;;
 
     const API_URL_MAT = SERV + 'matiere';
     const API_URL_NOTE = SERV + 'note';
@@ -52,7 +52,7 @@
     export default {
         name: 'eleve',
         data: () => ({
-            id: localStorage.getItem('id'),
+            id: localStorage.getItem('idEleve'),
             eleve: [],
             matieres: [],
             notesParMatiere: [],
@@ -62,11 +62,11 @@
             listeAbsence: [],
         }),
         beforeMount(){
+			this.getListeAbsence();
             this.getListMatieres()
             .then(() => {
                 this.getNotesByMatiere();
             });
-            this.getListeAbsence();
         },
         computed: {
             moy() {
@@ -93,8 +93,8 @@
         },
         methods: {
             eleveLogout() {
-                localStorage.removeItem('token');
-                localStorage.removeItem('id');
+                localStorage.removeItem('tokenEleve');
+                localStorage.removeItem('idEleve');
                 localStorage.clear();
                 this.$router.push('/eleve');
             },
@@ -104,7 +104,7 @@
                     let repMatiere = await fetch(API_URL_MAT, {
                         headers: {
                             'content-type': 'application/json',
-                            'authorization': localStorage.getItem('token'),
+                            'authorization': localStorage.getItem('tokenEleve'),
                         }
                     });
                     if (repMatiere.ok) {
@@ -113,7 +113,6 @@
                     }
                     else {
                         if (repMatiere.status == 401) {
-                                alert('Vous n\'êtes plus connecté');
                                 this.$router.push('/eleve');
                             }
                         else {
@@ -132,7 +131,7 @@
                         let repNote = await fetch(API_URL_NOTE + '/note/' + this.id + '/' + this.matieres[i]._id, {
                             headers: {
                                 'content-type': 'application/json',
-                                'authorization': localStorage.getItem('token'),
+                                'authorization': localStorage.getItem('tokenEleve'),
                             }
                         });
                         if (repNote.ok) {
@@ -141,7 +140,6 @@
                         }
                         else {
                             if (repNote.status == 401) {
-                                    alert('Vous n\'êtes plus connecté');
                                     this.$router.push('/eleve');
                                 }
                             else {
@@ -164,7 +162,7 @@
                     }),
                     headers: {
                         'content-type': 'application/json',
-                        'authorization': localStorage.getItem('token'),
+                        'authorization': localStorage.getItem('tokenEleve'),
                     }
                 })
                 .then(response => {
@@ -187,15 +185,16 @@
 
             async getListeAbsence() {
                 try {
-                    let repAbsence = await fetch(API_URL_ABSENCE, {
+					console.log(this.id)
+                    let repAbsence = await fetch(API_URL_ABSENCE + '/' + this.id, {
                         headers: {
                             'content-type': 'application/json',
-                            'authorization': localStorage.getItem('token'),
+                            'authorization': localStorage.getItem('tokenEleve'),
                         }
                     });
                     if (repAbsence.ok) {
                         let data = await repAbsence.json();
-                        this.listeAbsence = data.absences;
+                        this.listeAbsence = data.absence;
                         for (let i = 0; i < this.listeAbsence.length; i++) {
                             if (this.listeAbsence[i].justifie) {
                                 this.listeAbsence[i].justifie = 'Oui';
@@ -207,9 +206,9 @@
                     }
                     else {
                         if (repAbsence.status == 401) {
-                                alert('Vous n\'êtes plus connecté');
-                                this.$router.push('/eleve');
-                            }
+							alert('Vous n\'êtes plus connecté');
+							this.$router.push('/eleve');
+						}
                         else {
                             alert('Problème du serveur');
                         };

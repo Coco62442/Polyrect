@@ -22,7 +22,9 @@
 </template>
 
 <script>
-    const API_URL = 'https://polyrecte-serveur.herokuapp.com/prof';
+
+    const SERV = top.glob;
+	const API_URL = SERV + 'prof';
 
     export default {
         name: 'homeProf',
@@ -45,8 +47,8 @@
                     if (repProfLogin.ok) {
                     repProfLogin = await repProfLogin.json();
                     this.$router.push('./loginProf');
-                    localStorage.setItem('id', repProfLogin._id);
-                    localStorage.setItem('token', repProfLogin.token);
+                    localStorage.setItem('idProf', repProfLogin._id);
+                    localStorage.setItem('tokenProf', repProfLogin.token);
                     }
                     else {
                     alert('Mot de passe ou identifiant incorrect');

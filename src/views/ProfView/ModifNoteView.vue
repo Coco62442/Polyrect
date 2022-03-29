@@ -32,8 +32,7 @@
 </template>
 
 <script>
-
-const SERV = 'https://polyrecte-serveur.herokuapp.com/'
+const SERV = top.glob;
 const API_URL_ELEVE = SERV + 'eleve';
 const API_URL_MAT = SERV + 'matiere';
 const API_URL_NOTE = SERV + 'note';
@@ -41,7 +40,7 @@ const API_URL_NOTE = SERV + 'note';
     export default {
         name: 'modifNote',
         data: () => ({
-            idProf: localStorage.getItem('id'),
+            idProf: localStorage.getItem('idProf'),
             idMat: String,
             listeEleve : [],
             notesMat: [],
@@ -56,8 +55,8 @@ const API_URL_NOTE = SERV + 'note';
         },
         methods: {
             profLogout() {
-                localStorage.removeItem('token');
-                localStorage.removeItem('id');
+                localStorage.removeItem('tokenProf');
+                localStorage.removeItem('idProf');
                 localStorage.clear();
                 this.$router.push('/prof');
             },
@@ -67,7 +66,7 @@ const API_URL_NOTE = SERV + 'note';
                     let repEleve = await fetch(API_URL_ELEVE, {
                         headers: {
                             'content-type': 'application/json',
-                            'authorization': localStorage.getItem('token'),
+                            'authorization': localStorage.getItem('tokenProf'),
                         }
                     });
                     if (repEleve.ok) {
@@ -76,7 +75,6 @@ const API_URL_NOTE = SERV + 'note';
                     }
                     else {
                         if (repEleve.status == 401) {
-                            alert('Vous n\'êtes plus connecté');
                             this.$router.push('/prof');
                         }
                         else {
@@ -100,7 +98,7 @@ const API_URL_NOTE = SERV + 'note';
                     let repMat = await fetch(API_URL_MAT + '/' + this.idProf, {
                         headers: {
                             'content-type': 'application/json',
-                            'authorization': localStorage.getItem('token'),
+                            'authorization': localStorage.getItem('tokenProf'),
                         }
                     });
                     if (repMat.ok) {
@@ -109,7 +107,6 @@ const API_URL_NOTE = SERV + 'note';
                     }
                     else {
                         if (repMat.status == 401) {
-                            alert('Vous n\'êtes plus connecté');
                             this.$router.push('/prof');
                         }
                         else {
@@ -128,7 +125,7 @@ const API_URL_NOTE = SERV + 'note';
                     let repNote = await fetch(API_URL_NOTE + '/note/' + idEleve + '/' + this.idMat, {
                         headers: {
                             'content-type': 'application/json',
-                            'authorization': localStorage.getItem('token'),
+                            'authorization': localStorage.getItem('tokenProf'),
                         }
                     });
                     if (repNote.ok) {
@@ -159,7 +156,7 @@ const API_URL_NOTE = SERV + 'note';
                     }),
                     headers: {
                         'content-type': 'application/json',
-                        'authorization': localStorage.getItem('token'),
+                        'authorization': localStorage.getItem('tokenProf'),
                     }
                 })
                 .then(response => {
@@ -189,7 +186,7 @@ const API_URL_NOTE = SERV + 'note';
                             method: "DELETE",
                             headers: {
                                 'content-type': 'application/json',
-                                'authorization': localStorage.getItem('token'),
+                                'authorization': localStorage.getItem('tokenProf'),
                             }
                         });
                         if (repDel.ok) {
@@ -213,9 +210,3 @@ const API_URL_NOTE = SERV + 'note';
         }
     }
 </script>
-
-<style scoped>
-    a {
-        text-decoration: none;
-    }
-</style>

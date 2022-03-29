@@ -27,7 +27,7 @@
 
 <script>
 
-const SERV = 'http:localhost/4000/';
+const SERV = top.glob;
 
 const API_URL_PROF = SERV + 'prof';
 
@@ -36,7 +36,7 @@ export default {
 
     name: 'profProfil',
     data: () => ({
-        id: localStorage.getItem('id'),
+        id: localStorage.getItem('idProf'),
         emailPut: null,
         mdpPut: null,
         prof: [],
@@ -44,8 +44,8 @@ export default {
     }),
     methods: {
         profLogout() {
-            localStorage.removeItem('token');
-            localStorage.removeItem('id');
+            localStorage.removeItem('tokenProf');
+            localStorage.removeItem('idProf');
             localStorage.clear();
             this.$router.push('/prof');
         },
@@ -59,7 +59,7 @@ export default {
                 }),
                 headers: {
                     'content-type': 'application/json',
-                    'authorization': localStorage.getItem('token'),
+                    'authorization': localStorage.getItem('tokenProf'),
                 }
             })
             .then(response => {

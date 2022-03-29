@@ -150,7 +150,6 @@
 </template>
 
 <script>
-console.log(localStorage.getItem('tokenAdmin'))
 const SERV = top.glob;;
 const API_URL_ELEVE = SERV + 'eleve';
 const API_URL_PROF = SERV + 'prof';
@@ -231,7 +230,6 @@ const API_URL_MAT = SERV + 'matiere';
             },
 
             async putEleve(id, prenom, nom) {
-                console.log(id,prenom,nom)
                 await fetch(API_URL_ELEVE + '/' + id, {
                     method: "PUT",
                     body: JSON.stringify({
@@ -461,7 +459,6 @@ const API_URL_MAT = SERV + 'matiere';
                     });
                     if (repMat.ok) {
                         let data = await repMat.json();
-						console.log(data)
                         this.listeMat = data.mats;
                         }
                     else {

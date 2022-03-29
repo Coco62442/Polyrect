@@ -3,8 +3,7 @@
 </template>
 
 <script>
-	top.glob = 'https://polyrecte-serveur.herokuapp.com/';
-	
+	top.glob = 'http://localhost:4000/';
 </script>
 <style>
 #app {

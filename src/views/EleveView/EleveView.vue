@@ -185,7 +185,6 @@
 
             async getListeAbsence() {
                 try {
-					console.log(this.id)
                     let repAbsence = await fetch(API_URL_ABSENCE + '/' + this.id, {
                         headers: {
                             'content-type': 'application/json',

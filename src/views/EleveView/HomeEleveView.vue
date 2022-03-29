@@ -54,7 +54,6 @@ export default {
             mdp: this.loginMdp,
           })
         });
-        
         if (repEleveLogin.ok) {
           repEleveLogin = await repEleveLogin.json();
           this.$router.push('./loginEleve');

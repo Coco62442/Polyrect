@@ -18,7 +18,7 @@ export default defineComponent({
     }
 	// Enregistrement dans une variable global l'url du serveur et le toast
 	top.glob = {
-		'serv': 'http://localhost:4000/',
+		'serv': 'https://polyrecte-serveur.herokuapp.com/',
 		'toast': toast
 	};
     return { toast }

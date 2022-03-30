@@ -55,7 +55,7 @@ nav a.router-link-exact-active {
 }
 
 body {
-    background: #c7c7c7;
+    background: #EEEEEE;
 }
 
 body * {
@@ -75,7 +75,7 @@ body * {
     padding: 30px;
     border: 1px solid #f1f1f1;
     border-radius: 20px;
-    background: #fff;
+    background: rgb(199, 199, 199);
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .container h1{
@@ -90,8 +90,9 @@ body * {
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid rgb(215, 221, 226);
     box-sizing: border-box;
+	background-color: rgb(232, 236, 243);
 }
 
 /* Set a style for all buttons */
@@ -105,7 +106,7 @@ body * {
     width: 100%;
 }
 .form button:hover {
-    background-color: white;
+    background-color: rgb(157, 151, 211);
     color: #6cd5ff;
     border: 1px solid #6cd5ff;
 }

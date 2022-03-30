@@ -16,7 +16,7 @@ export default defineComponent({
 		})
     }
 	top.glob = {
-		'serv': 'http://localhost:4000/',
+		'serv': 'https://polyrecte-serveur.herokuapp.com/',
 		'toast': toast
 	};
     return { toast }

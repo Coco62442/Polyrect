@@ -97,7 +97,7 @@
                 localStorage.removeItem('idEleve');
                 localStorage.clear();
                 this.$router.push('/eleve');
-				top.glob.toast("Vous n'êtes pas connecté", "info");
+				top.glob.toast("Vous êtes déconnecté", "info");
             },
 
             async getListMatieres() {
@@ -115,7 +115,7 @@
                     else {
                         if (repMatiere.status == 401) {
                                 this.$router.push('/eleve');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             console.log("Erreur du serveur");
@@ -144,7 +144,7 @@
                         else {
                             if (repNote.status == 401) {
                                     this.$router.push('/eleve');
-									top.glob.toast("Vous n'êtes pas connecté", "info");
+									top.glob.toast("Vous êtes déconnecté", "info");
                                 }
                             else {
                                 top.glob.toast('Problème du serveur', 'warning');
@@ -179,7 +179,7 @@
                     else {
                         if (response.status == 401) {
                                 this.$router.push('/eleve');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             top.glob.toast('Problème lors de la mise à jour de l\'élève', 'warning');
@@ -211,7 +211,7 @@
                     else {
                         if (repAbsence.status == 401) {
 							this.$router.push('/eleve');
-							top.glob.toast("Vous n'êtes pas connecté", "info");
+							top.glob.toast("Vous êtes déconnecté", "info");
 						}
                         else {
                             top.glob.toast('Problème du serveur', 'warning');

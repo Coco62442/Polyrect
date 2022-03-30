@@ -57,7 +57,7 @@ export default {
                 else {
                     if (response.status == 401) {
                             this.$router.push('/admin');
-							top.glob.toast("Vous n'êtes pas connecté", "info");
+							top.glob.toast("Vous êtes déconnecté", "info");
                         }
                     else {
                         top.glob.toast('Problème lors de la mise à jour de l\'administrateur', 'warning');

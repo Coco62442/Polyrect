@@ -55,6 +55,7 @@ export default {
             localStorage.removeItem('idProf');
             localStorage.clear();
             this.$router.push('/prof');
+			top.glob.toast("Vous êtes déconnecté", "info");
         },
 
         async getListeEleves() {
@@ -72,7 +73,7 @@ export default {
                 else {
                     if (repEleve.status == 401) {
                         this.$router.push('/prof');
-						top.glob.toast("Vous n'êtes pas connecté", "info");
+						top.glob.toast("Vous êtes déconnecté", "info");
                     }
                     else {
                         console.log("Erreur du serveur");
@@ -100,7 +101,7 @@ export default {
                 else {
                     if (repMat.status == 401) {
                         this.$router.push('/prof');
-						top.glob.toast("Vous n'êtes pas connecté", "info");
+						top.glob.toast("Vous êtes déconnecté", "info");
                     }
                     else {
                         console.log("Erreur du serveur");
@@ -136,7 +137,7 @@ export default {
                     else {
                         if (repNote.status == 401) {
                             this.$router.push('/prof');
-							top.glob.toast("Vous n'êtes pas connecté", "info");
+							top.glob.toast("Vous êtes déconnecté", "info");
                         }
                         else {
                             problem += 1;

@@ -60,7 +60,7 @@ export default {
             localStorage.removeItem('idProf');
             localStorage.clear();
             this.$router.push('/prof');
-			top.glob.toast("Vous n'êtes pas connecté", "info");
+			top.glob.toast("Vous êtes déconnecté", "info");
         },
 
         async getListeEleves() {
@@ -78,7 +78,7 @@ export default {
                 else {
                     if (repEleve.status == 401) {
                             this.$router.push('/prof');
-							top.glob.toast("Vous n'êtes pas connecté", "info");
+							top.glob.toast("Vous êtes déconnecté", "info");
                         }
                     else {
                         console.log("Erreur du serveur");
@@ -114,7 +114,7 @@ export default {
                 else {
                     if (repAbsences.status == 401) {
                         this.$router.push('/prof');
-						top.glob.toast("Vous n'êtes pas connecté", "info");
+						top.glob.toast("Vous êtes déconnecté", "info");
                     }
                 };
             }
@@ -146,7 +146,7 @@ export default {
                 else {
                     if (response.status == 401) {
                             this.$router.push('/prof');
-							top.glob.toast("Vous n'êtes pas connecté", "info");
+							top.glob.toast("Vous êtes déconnecté", "info");
                         }
                     else {
                         top.glob.toast('Problème lors de la mise à jour de l\'absence', 'warning');
@@ -177,7 +177,7 @@ export default {
                         else {
                             if (repDel.status == 401) {
                                     this.$router.push('/prof');
-									top.glob.toast("Vous n'êtes pas connecté", "info");
+									top.glob.toast("Vous êtes déconnecté", "info");
                                 }
                             else {
                                 top.glob.toast('Problème lors de la supression de l\'absence', 'warning');

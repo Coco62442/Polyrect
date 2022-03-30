@@ -193,7 +193,7 @@ const API_URL_MAT = SERV + 'matiere';
 			}
 			catch {
 				this.$router.push('./loginAdmin');
-				top.glob.toast("Vous n'êtes pas connecté", "info");
+				top.glob.toast("Vous êtes déconnecté", "info");
 			}
         },
         methods: {
@@ -202,7 +202,7 @@ const API_URL_MAT = SERV + 'matiere';
                 localStorage.removeItem('idAdmin');
                 localStorage.clear();
                 this.$router.push('/admin');
-				top.glob.toast("Vous n'êtes pas connecté", "info");
+				top.glob.toast("Vous êtes déconnecté", "info");
             },
 
             async getListeEleves() {
@@ -220,7 +220,7 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (repEleve.status == 401) {
                                 this.$router.push('/admin');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             console.log("Erreur du serveur");
@@ -253,7 +253,7 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (response.status == 401) {
                                 this.$router.push('/admin');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             top.glob.toast('Problème lors de la mise à jour de l\'élève', 'warning');
@@ -289,7 +289,7 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (response.status == 401) {
                                 this.$router.push('/admin');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             top.glob.toast('Problème lors de l\'ajout de l\'élève', 'warning');
@@ -316,7 +316,7 @@ const API_URL_MAT = SERV + 'matiere';
                         else {
                             if (repDel.status == 401) {
                                     this.$router.push('/admin');
-									top.glob.toast("Vous n'êtes pas connecté", "info");
+									top.glob.toast("Vous êtes déconnecté", "info");
                                 }
                             else {
                                 top.glob.toast('Problème lors de la supression de l\'élève', 'warning');
@@ -344,7 +344,7 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (repProf.status == 401) {
                                 this.$router.push('/admin');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             top.glob.toast("Le chargement des donnés n'a pas pu être fait", 'danger');
@@ -377,7 +377,7 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (response.status == 401) {
                                 this.$router.push('/admin');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             top.glob.toast('Problème lors de la mise à jour du professeur', 'warning');
@@ -416,7 +416,7 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (response.status == 401) {
                                 this.$router.push('/admin');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             top.glob.toast('Problème lors de l\'ajout du professeur (la matière ou le professeur doivent être unique)', 'warning');
@@ -447,7 +447,7 @@ const API_URL_MAT = SERV + 'matiere';
                         else {
                             if (repDel.status == 401) {
                                     this.$router.push('/admin');
-									top.glob.toast("Vous n'êtes pas connecté", "info");
+									top.glob.toast("Vous êtes déconnecté", "info");
                                 }
                             else {
                                 top.glob.toast('Problème lors de la supression du professeur', 'warning');
@@ -475,7 +475,7 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (repMat.status == 401) {
                                 this.$router.push('/admin');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             top.glob.toast("Le chargement des donnés n'a pas pu être fait", 'warning');
@@ -506,7 +506,7 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (response.status == 401) {
                                 this.$router.push('/admin');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             top.glob.toast('Problème lors de l\'ajout de la matière', 'warning');
@@ -537,7 +537,7 @@ const API_URL_MAT = SERV + 'matiere';
                         else {
                             if (repDel.status == 401) {
                                     this.$router.push('/admin');
-									top.glob.toast("Vous n'êtes pas connecté", "info");
+									top.glob.toast("Vous êtes déconnecté", "info");
                                 }
                             else {
                                 top.glob.toast('Problème lors de la supression de la matière', 'warning');
@@ -565,7 +565,7 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (repAdmin.status == 401) {
                                 this.$router.push('/admin');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             console.log("Erreur du serveur");
@@ -598,7 +598,7 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (response.status == 401) {
                                 this.$router.push('/admin');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             top.glob.toast('Problème lors de la mise à jour de l\'administrateur', 'warning');
@@ -630,7 +630,7 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (response.status == 401) {
                                 this.$router.push('/admin');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             top.glob.toast('Problème lors de l\'ajout', 'warning');
@@ -661,7 +661,7 @@ const API_URL_MAT = SERV + 'matiere';
                         else {
                             if (repDel.status == 401) {
                                 this.$router.push('/admin');
-								top.glob.toast("Vous n'êtes pas connecté", "info");
+								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                             else {
                                 top.glob.toast('Problème lors de la supression de l\'administrateur (il doit toujours exister au moins un admin!)', 'warning');

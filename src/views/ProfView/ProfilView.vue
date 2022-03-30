@@ -48,7 +48,7 @@ export default {
             localStorage.removeItem('idProf');
             localStorage.clear();
             this.$router.push('/prof');
-			top.glob.toast("Vous n'êtes pas connecté", "info");
+			top.glob.toast("Vous êtes déconnecté", "info");
         },
 
         async putProf() {
@@ -70,7 +70,7 @@ export default {
                 else {
                     if (response.status == 401) {
                         this.$router.push('/prof');
-						top.glob.toast("Vous n'êtes pas connecté", "info");
+						top.glob.toast("Vous êtes déconnecté", "info");
                     }
                     else {
                         top.glob.toast('Les informations n\'ont pas pu être mises à jour', "warning");

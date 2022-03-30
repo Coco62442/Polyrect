@@ -17,9 +17,11 @@
                 <div v-for="note in notesMat" :key="note" v-show="showNotes[index1]">
                     <form @submit.prevent="putNote(note._id, note.note, note.num)">
                         <div>
+							<label>Changer la note: </label>
                             <input v-model="note.note" class="input" type="number" min="0" max="20">
                         </div>
                         <div>
+							<label>Changer le numéro de contrôle: </label>
                             <input v-model="note.num" class="input" type="number" min="0">
                         </div>
                         <button class="input" type="submit">Mettre à jour</button>
@@ -59,7 +61,7 @@ const API_URL_NOTE = SERV + 'note';
                 localStorage.removeItem('idProf');
                 localStorage.clear();
                 this.$router.push('/prof');
-				top.glob.toast("Vous n'êtes pas connecté", "info");
+				top.glob.toast("Vous êtes déconnecté", "info");
             },
 
             async getListeEleves() {
@@ -77,7 +79,7 @@ const API_URL_NOTE = SERV + 'note';
                     else {
                         if (repEleve.status == 401) {
                             this.$router.push('/prof');
-							top.glob.toast("Vous n'êtes pas connecté", "info");
+							top.glob.toast("Vous êtes déconnecté", "info");
                         }
                         else {
                             console.log("Erreur du serveur");
@@ -111,7 +113,7 @@ const API_URL_NOTE = SERV + 'note';
                     else {
                         if (repMat.status == 401) {
                             this.$router.push('/prof');
-							top.glob.toast("Vous n'êtes pas connecté", "info");
+							top.glob.toast("Vous êtes déconnecté", "info");
                         }
                         else {
                             console.log("Erreur du serveur");
@@ -141,7 +143,7 @@ const API_URL_NOTE = SERV + 'note';
                     else {
                         if (repNote.status == 401) {
                             this.$router.push('/prof');
-							top.glob.toast("Vous n'êtes pas connecté", "info");
+							top.glob.toast("Vous êtes déconnecté", "info");
                         }
                     };
                 }
@@ -171,7 +173,7 @@ const API_URL_NOTE = SERV + 'note';
                     else {
                         if (response.status == 401) {
                             this.$router.push('/prof');
-							top.glob.toast("Vous n'êtes pas connecté", "info");
+							top.glob.toast("Vous êtes déconnecté", "info");
                         }
                         else {
                             top.glob.toast('Problème lors de la mise à jour de la note', 'warning');
@@ -202,7 +204,7 @@ const API_URL_NOTE = SERV + 'note';
                         else {
                             if (repDel.status == 401) {
                                     this.$router.push('/prof');
-									top.glob.toast("Vous n'êtes pas connecté", "info");
+									top.glob.toast("Vous êtes déconnecté", "info");
                                 }
                             else {
                                 top.glob.toast('Problème lors de la supression de la note', 'warning');

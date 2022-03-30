@@ -26,20 +26,20 @@
             <form @submit.prevent="addEleve" class="form">
 				<h3>Formulaire de création d'élève:</h3>
                 <div>
-                <label for="email">Email</label>
-                <input v-model="eleve.email" type="email" required placeholder="Entrer un email">
+					<label for="email">Email</label>
+					<input v-model="eleve.email" type="email" required placeholder="Entrer un email">
                 </div>
                 <div>
-                <label for="prenom">Prénom</label>
-                <input v-model="eleve.prenom" type="text" placeholder="Entrer un prénom" required>
+					<label for="prenom">Prénom</label>
+					<input v-model="eleve.prenom" type="text" placeholder="Entrer un prénom" required>
                 </div>
                 <div>
-                <label for="nom">Nom</label>
-                <input v-model="eleve.nom" type="text" placeholder="Entrer un nom">
+					<label for="nom">Nom</label>
+					<input v-model="eleve.nom" type="text" placeholder="Entrer un nom">
                 </div>
                 <div>
-                <label for="mdp">Mot de passe</label>
-                <input v-model="eleve.mdp" type="password" pattern="^([ a-zA-Z0-9@ *#]{3,15})$" placeholder="Entrer un mot de passe">
+					<label for="mdp">Mot de passe</label>
+					<input v-model="eleve.mdp" type="password" pattern="^([ a-zA-Z0-9@ *#]{3,15})$" placeholder="Entrer un mot de passe">
                 </div>
                 <button type="submit">Ajouter un élève</button>
             </form>
@@ -128,20 +128,20 @@
             <form @submit.prevent="addAdmin" class="form">
 				<h3>Formulaire de création d'administrateur:</h3>
                 <div>
-                <label for="email">Email</label>
-                <input v-model="admin.email" type="email" required placeholder="Entrer un email">
+					<label>Email</label>
+					<input v-model="admin.email" type="email" required placeholder="Entrer un email">
                 </div>
                 <div>
-                <label for="prenom">Prénom</label>
-                <input v-model="admin.prenom" type="text" placeholder="Entrer un prénom" required>
+					<label>Prénom</label>
+					<input v-model="admin.prenom" type="text" placeholder="Entrer un prénom" required>
                 </div>
                 <div>
-                <label for="nom">Nom</label>
-                <input v-model="admin.nom" type="text" placeholder="Entrer un nom">
+					<label>Nom</label>
+					<input v-model="admin.nom" type="text" placeholder="Entrer un nom">
                 </div>
                 <div>
-                <label for="mdp">Mot de passe</label>
-                <input v-model="admin.mdp" type="password" pattern="^([ a-zA-Z0-9@ *#]{3,15})$" placeholder="Entrer un mot de passe">
+					<label>Mot de passe</label>
+					<input v-model="admin.mdp" type="password" pattern="^([ a-zA-Z0-9@ *#]{3,15})$" placeholder="Entrer un mot de passe">
                 </div>
                 <button type="submit">Ajouter un administrateur</button>
             </form>
@@ -204,8 +204,9 @@ const API_URL_MAT = SERV + 'matiere';
                 this.$router.push('/admin');
 				top.glob.toast("Vous êtes déconnecté", "info");
             },
-
+			// Partie Eleve #############################
             async getListeEleves() {
+				// Recuperer la liste des eleves
                 try {
                     let repEleve = await fetch(API_URL_ELEVE, {
                         headers: {
@@ -234,6 +235,7 @@ const API_URL_MAT = SERV + 'matiere';
             },
 
             async putEleve(id, prenom, nom) {
+				//  Mettre a jour les informations de l eleve
                 await fetch(API_URL_ELEVE + '/' + id, {
                     method: "PUT",
                     body: JSON.stringify({
@@ -267,6 +269,7 @@ const API_URL_MAT = SERV + 'matiere';
             },
 
             async addEleve() {
+				// Ajouter un eleve
                 await fetch(API_URL_ELEVE, {
                     method: "POST",
                     body: JSON.stringify(this.eleve),
@@ -299,6 +302,7 @@ const API_URL_MAT = SERV + 'matiere';
             },
 
             async delEleve(idEleve) {
+				// Supprimer un eleve
                 const rep = confirm('Voulez-vous confirmez la supression?');
                 if (rep) {
                     try {
@@ -328,7 +332,8 @@ const API_URL_MAT = SERV + 'matiere';
                     };
                 };
             },
-
+			// Partie Eleve ################################
+			// Partie Prof #################################
             async getListeProfs() {
                 try {
                     let repProf = await fetch(API_URL_PROF, {
@@ -459,7 +464,10 @@ const API_URL_MAT = SERV + 'matiere';
                     };
                 };
             },
-
+			// Partie Prof ##################################
+			// Partie Matiere ###############################
+			// La matiere est cree et associee au professeur directement a la creation du professeur
+			// Donc on ne peut pas creer de matiere
 			async getListeMats() {
                 try {
                     let repMat = await fetch(API_URL_MAT, {
@@ -549,7 +557,8 @@ const API_URL_MAT = SERV + 'matiere';
                     };
                 };
             },
-
+			// Partie Matiere ##########################
+			// Partie Admins ###########################
             async getListeAdmins() {
                 try {
                     let repAdmin = await fetch(API_URL_ADMIN, {
@@ -673,6 +682,16 @@ const API_URL_MAT = SERV + 'matiere';
                     };
                 };
             },
+			// Partie Admins ######################
         }
     }
 </script>
+<style scoped>
+form, h3 {
+	margin: 3% auto 1% auto;
+}
+li {
+	margin-top: 4%;
+	list-style: none;
+}
+</style>

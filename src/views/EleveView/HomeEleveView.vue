@@ -32,7 +32,6 @@ export default {
   name: 'home',
   data: () => ({
     error: '',
-    eleves: [],
     eleve: {
       email: "",
       prenom: "",

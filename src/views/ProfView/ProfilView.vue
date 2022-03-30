@@ -12,12 +12,12 @@
 			<h4>Formulaire pour mettre à jour tes informations:</h4>
 			<form @submit.prevent="putProf" class="form">
 			<div>
-			<label for="emailPut">Email</label>
-			<input v-model="emailPut" type="email" placeholder="Entrer un email">
+				<label for="emailPut">Email</label>
+				<input v-model="emailPut" type="email" placeholder="Entrer un email">
 			</div>
 			<div>
-			<label for="mdpPut">Mot de passe</label>
-			<input v-model="mdpPut" type="password" placeholder="Entrer un mot de passe">
+				<label for="mdpPut">Mot de passe</label>
+				<input v-model="mdpPut" type="password" placeholder="Entrer un mot de passe">
 			</div>
 			<button type="submit">Mettre à jour</button>
 			</form>

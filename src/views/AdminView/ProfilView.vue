@@ -39,6 +39,7 @@ export default {
         },
 
         async putAdmin() {
+			// Mettre a jour son compte admin
             await fetch(API_URL_ADMIN + '/' + this.idAdmin, {
                 method: "PUT",
                 body: JSON.stringify({

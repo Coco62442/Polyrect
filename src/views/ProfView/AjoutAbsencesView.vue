@@ -36,7 +36,7 @@
 						<label for="date">Date: </label>
 						<input v-model="date" class="input" type="text" id="date">
 					</p>
-                    <button type="submit" class="input">Mettre à jour</button>
+                    <button type="submit" class="input">Ajouter</button>
                 </form>
             </div>
         </div>
@@ -75,6 +75,7 @@ export default {
         },
 
         async getListeEleves() {
+			// Recuperer liste des eleves
             try {
                 let repEleve = await fetch(API_URL_ELEVE, {
                     headers: {
@@ -109,6 +110,7 @@ export default {
         },
 
         async getAllAbsencesByEleve(idEleve, index) {
+			// Recuperer les absences de l eleve
             try {
                 this.notShowAbsences();
                 let repAbsences = await fetch(API_URL_ABSENCE + '/' + idEleve, {
@@ -148,6 +150,7 @@ export default {
         },
 
         async creerAbsence(id, index) {
+			// Ajouter absences
             try {
                 let repAbsence = await fetch(API_URL_ABSENCE, {
                     method: "POST",

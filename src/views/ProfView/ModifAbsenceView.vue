@@ -9,6 +9,7 @@
         </nav>
         <button v-on:click='profLogout()' class="deconnexion">Déconnexion</button>
         <hr>
+		<!-- Modifier les absences -->
         <div v-for="(eleve, index1) in listeEleve" :key="eleve._id">
             <li>
                 <a href="#" v-on:click='getAllAbsencesByEleve(eleve._id, index1)'>
@@ -17,12 +18,15 @@
                 <div v-for="absence in listeAbsence" :key="absence" v-show="showFormAbsence[index1]">
                     <form @submit.prevent="putAbsence(absence._id, absence.justification, absence.justifie, absence.date, eleve._id)">
                         <div>
+							<label>Justification: </label>
                             <input v-model="absence.justification" class="input" type="text" id="justification" placeholder="Entrer une justification d'absence">
                         </div>
                         <div>
+							<label>Justifié: </label>
                             <input v-model="absence.justifie" class="input" type="checkbox" checked id="justifie">
                         </div>
                         <div>
+							<label>Date: </label>
                             <input v-model="absence.date" class="input" type="text" id="date">
                         </div>
                         <button class="input" type="submit">Mettre à jour</button>
@@ -64,6 +68,7 @@ export default {
         },
 
         async getListeEleves() {
+			// Recuperer la liste des eleves
             try {
                 let repEleve = await fetch(API_URL_ELEVE, {
                     headers: {
@@ -98,6 +103,7 @@ export default {
         },
 
         async getAllAbsencesByEleve(idEleve, index) {
+			// Recuperer les absences de l'eleve actif
             try {
                 this.notShowAbsences();
                 let repAbsences = await fetch(API_URL_ABSENCE + '/' + idEleve, {
@@ -126,6 +132,7 @@ export default {
         },
 
         async putAbsence(id, justification, justifie, date, eleve) {
+			// Mettre a jour l'absence
             await fetch(API_URL_ABSENCE + '/' + id, {
                 method: "PUT",
                 body: JSON.stringify({
@@ -160,6 +167,7 @@ export default {
         },
 
         async delAbsence(idAbsence, idEleve, index) {
+			// Suppression de l'absence
                 const rep = confirm('Voulez-vous confirmez la supression?');
                 if (rep) {
                     try {

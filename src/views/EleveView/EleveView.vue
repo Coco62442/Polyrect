@@ -1,7 +1,7 @@
 <template>
     <div>
         <button v-on:click='eleveLogout()' class="deconnexion">Déconnexion</button>
-
+		<hr>
         <ul class="ulGlobal" v-for="(mat, index) in matieres" v-bind:key="mat">
             <li>{{ mat.nom }}</li>
             <ul class="notesMat" v-for="note in notesParMatiere[index]" v-bind:key="note">
@@ -10,6 +10,7 @@
             <li v-if="moyMat[index] != undefined"> Moyenne: {{ moyMat[index] }}</li>
         </ul>
         <li>Moyenne générale: <span v-if="moy != undefined">{{ moy }}</span></li>
+		<hr>
         <h4>Tes absences:</h4>
         <div v-for="absence in listeAbsence" :key="absence._id" class="absence">
             <ul>
@@ -24,6 +25,7 @@
 				</li>
 			</ul>
         </div>
+		<hr>
 		<div class="container">
 			<form @submit.prevent="putEleve" class="form">
 				<h4>Formulaire pour mettre à jour tes informations: </h4>
@@ -69,6 +71,7 @@
             });
         },
         computed: {
+			// Calcul de la moyenne en computed
             moy() {
                 var moyTotal = 0;
                 var vide = 0;
@@ -101,6 +104,7 @@
             },
 
             async getListMatieres() {
+				// Recuperer la liste des matieres
                 try {
                     let repMatiere = await fetch(API_URL_MAT, {
                         headers: {
@@ -128,6 +132,7 @@
             },
 
             async getNotesByMatiere() {
+				// Recuperer les notes par et pour chaque matiere
                 for (let i = 0; i < this.matieres.length; i++) {
                     try {
                         let repNote = await fetch(API_URL_NOTE + '/note/' + this.id + '/' + this.matieres[i]._id, {
@@ -158,6 +163,7 @@
             },
 
             async putEleve() {
+				// Mettre a jour les informations de l'eleve
                 await fetch(API_URL_ELEVE + '/' + this.id, {
                     method: "PUT",
                     body: JSON.stringify({
@@ -188,6 +194,7 @@
             },
 
             async getListeAbsence() {
+				// Recuperer liste des absences
                 try {
                     let repAbsence = await fetch(API_URL_ABSENCE + '/' + this.id, {
                         headers: {

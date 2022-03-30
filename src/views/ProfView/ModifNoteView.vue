@@ -49,6 +49,8 @@ const API_URL_NOTE = SERV + 'note';
             showNotes: [],
         }),
         beforeMount() {
+			// Appel des fonctions à charger au chargement de la page 
+			// notShowMessage() est appelle seulement lorsque la liste entiere des eleves a ete recuperer
             this.getListeEleves()
             .then(() => {
                 this.notShowMessage();
@@ -65,6 +67,7 @@ const API_URL_NOTE = SERV + 'note';
             },
 
             async getListeEleves() {
+				// Recupere la liste des eleves
                 try {
                     let repEleve = await fetch(API_URL_ELEVE, {
                         headers: {

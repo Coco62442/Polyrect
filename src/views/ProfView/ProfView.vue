@@ -1,5 +1,6 @@
 <template>
     <div>
+		<!-- Navigation entre les différentes possibilités pour un prof -->
         <nav>
             <router-link to="/loginProf">Ajouter des Notes</router-link>
             <router-link to="/modifNote">Modifier des Notes</router-link>
@@ -9,7 +10,9 @@
         </nav>
         <button v-on:click='profLogout()' class="deconnexion">Déconnexion</button>
         <form @submit.prevent="creerNotes">
+			<!-- v-for parcours la liste des eleves pour l'afficher -->
             <div v-for="(item, index) in listeEleve" :key="item._id">
+				<!-- A chaque boucle de for on affiche l'eleve avec un formulaire qui est en lien avec un tableau note pour envoyer les futures donnees -->
                 <li>
                     <p>{{ item.prenom }} {{ item.nom }}</p>
                     <input class="input" v-model="note[index]" type="number" min="0" max="20" style="width:200px" id="note" placeholder="Entrer la note">
@@ -18,7 +21,7 @@
             <div>
 				<label>Numéro du contrôle: </label>
                 <input class="input" v-model="num" type="number" min="1" style="width: 200px" id="num" placeholder="Entrer le numéro du contrôle">
-                <!-- <label for="coef">Coefficient du contrôle</label>
+				<!-- <label for="coef">Coefficient du contrôle</label>
                 <input class="input" type="number" min="1" value="1" id="coef" placeholder="Entrer le coefficient"> -->
             </div>
             <input class="input" type="submit" id='submit' value='Valider'>
@@ -45,12 +48,14 @@ export default {
         num: Number
     }),
     beforeMount() {
+		// Appel des listes au chargement de la page
         this.getListeEleves();
         this.getIdMat();
     },
     methods: {
 
         profLogout() {
+			// Remove + Clear le localstorage afin d'etre sure que le token n est plus dans le localstorage du client
             localStorage.removeItem('tokenProf');
             localStorage.removeItem('idProf');
             localStorage.clear();
@@ -59,6 +64,7 @@ export default {
         },
 
         async getListeEleves() {
+			// Recuperation de la liste des eleves a afficher
             try {
                 let repEleve = await fetch(API_URL_ELEVE, {
                     headers: {
@@ -87,6 +93,7 @@ export default {
         },
 
         async getIdMat() {
+			//  Recuperation de l'identifiant de la matiere associee au prof
             try {
                 let repMat = await fetch(API_URL_MAT + '/' + this.idProf, {
                     headers: {
@@ -114,6 +121,9 @@ export default {
         },
 
         async creerNotes() {
+			// Creer des notes pour chaque eleves dans la liste 
+			// Clean les inputs si il n'y a pas eu de problemes lors de la creation de la note
+			// Probleme = compteur pour afficher qu'un seul toast d'erreur meme s'il y a plusieurs erreurs
             var problem = 0;
             for (let i = 0; i < this.listeEleve.length; i++) {
                 try {

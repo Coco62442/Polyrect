@@ -3,20 +3,22 @@
 </template>
 
 <script>
+// IMPORT pour les Toasts
 import { defineComponent } from 'vue'
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css'
 
 export default defineComponent({
-  name: 'HelloWorld',
+  name: 'toast',
   setup () {
     const toast = (message, type) => {
         createToast(message, {
 			type: type
 		})
     }
+	// Enregistrement dans une variable global l'url du serveur et le toast
 	top.glob = {
-		'serv': 'https://polyrecte-serveur.herokuapp.com/',
+		'serv': 'http://localhost:4000/',
 		'toast': toast
 	};
     return { toast }

@@ -148,7 +148,7 @@ export default {
                 };
             };
             if (problem) {
-                top.glob.toast("Problème de création là où le formulaire n'est pas vide", "warning");
+                top.glob.toast("Problème de création là où le formulaire n'est pas vide (Potentiellement le numéro de contrôle existe déjà).", "warning");
             }
             else {
                 top.glob.toast("Enregistrement efféctué avec succès!", "default");

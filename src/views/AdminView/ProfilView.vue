@@ -85,7 +85,7 @@ export default {
 /* Bordered form */
 form {
     margin: auto;
-    width:100%;
+    width:70%;
     padding: 30px;
     border: 1px solid #f1f1f1;
     border-radius: 20px;

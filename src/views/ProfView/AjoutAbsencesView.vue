@@ -23,16 +23,19 @@
                 </div>
             </li>
             <div v-show="showFormAbsence[index1]">
-                <form @submit.prevent="creerAbsence(eleve._id, index1)">
-                    <div>
-                        <input v-model="justification" class="input" type="text" id="justification" placeholder="Entrer une justification d'absence">
-                    </div>
-                    <div>
-                        <input v-model="justifie" class="input" type="checkbox" checked id="justifie">
-                    </div>
-                    <div>
-                        <input v-model="date" class="input" type="text" id="date">
-                    </div>
+                <form @submit.prevent="creerAbsence(eleve._id, index1)" class="align">
+					<p>
+						<label for="justification">Justification: </label>
+						<input v-model="justification" class="input" type="text" id="justification" placeholder="Entrer une justification d'absence">
+					</p>
+					<p>
+						<label for="justifie">Justifié: </label>
+						<input v-model="justifie" class="input" type="checkbox" checked id="justifie">
+					</p>
+					<p>
+						<label for="date">Date: </label>
+						<input v-model="date" class="input" type="text" id="date">
+					</p>
                     <button type="submit" class="input">Mettre à jour</button>
                 </form>
             </div>

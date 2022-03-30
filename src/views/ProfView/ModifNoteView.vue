@@ -113,7 +113,6 @@ const API_URL_NOTE = SERV + 'note';
                     else {
                         if (repMat.status == 401) {
                             this.$router.push('/prof');
-							top.glob.toast("Vous êtes déconnecté", "info");
                         }
                         else {
                             console.log("Erreur du serveur");

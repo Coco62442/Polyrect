@@ -115,7 +115,6 @@
                     else {
                         if (repMatiere.status == 401) {
                                 this.$router.push('/eleve');
-								top.glob.toast("Vous êtes déconnecté", "info");
                             }
                         else {
                             console.log("Erreur du serveur");

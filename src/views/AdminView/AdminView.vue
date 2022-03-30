@@ -150,7 +150,7 @@
 </template>
 
 <script>
-const SERV = top.glob;;
+const SERV = top.glob.serv;
 const API_URL_ELEVE = SERV + 'eleve';
 const API_URL_PROF = SERV + 'prof';
 const API_URL_ADMIN = SERV + 'admin';
@@ -192,7 +192,8 @@ const API_URL_MAT = SERV + 'matiere';
 				this.getListeMats();
 			}
 			catch {
-				alert('test')
+				this.$router.push('./loginAdmin');
+				top.glob.toast("Vous n'êtes pas connecté", "info");
 			}
         },
         methods: {
@@ -201,6 +202,7 @@ const API_URL_MAT = SERV + 'matiere';
                 localStorage.removeItem('idAdmin');
                 localStorage.clear();
                 this.$router.push('/admin');
+				top.glob.toast("Vous n'êtes pas connecté", "info");
             },
 
             async getListeEleves() {
@@ -218,14 +220,16 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (repEleve.status == 401) {
                                 this.$router.push('/admin');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                         else {
                             console.log("Erreur du serveur");
-                            alert("Le chargement des donnés n'a pas pu être fait");
+                            top.glob.toast("Le chargement des donnés n'a pas pu être fait", "warning");
                         };
                     };
                 } catch (error) {
                     console.log(error);
+					top.glob.toast('Erreur', 'danger');
                 }
             },
 
@@ -243,21 +247,22 @@ const API_URL_MAT = SERV + 'matiere';
                 })
                 .then(response => {
                     if (response.ok) {
-                        alert("Eleve mis à jour");
+                        top.glob.toast("Eleve mis à jour", "success");
                         this.getListeEleves();
                     }
                     else {
                         if (response.status == 401) {
-                                alert('Vous n\'êtes plus connecté');
                                 this.$router.push('/admin');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                         else {
-                            alert('Problème lors de la mise à jour de l\'élève');
+                            top.glob.toast('Problème lors de la mise à jour de l\'élève', 'warning');
                         };
                     };
                 })
                 .catch((err) => {
                     console.log(err);
+					top.glob.toast('Erreur', 'danger');
                 })
             },
 
@@ -279,15 +284,15 @@ const API_URL_MAT = SERV + 'matiere';
                             nom: "",
                             mdp: ""
                         };
-                        alert("Elève ajouté");
+                        top.glob.toast("Elève ajouté", "success");
                     }
                     else {
                         if (response.status == 401) {
-                                alert('Vous n\'êtes plus connecté');
                                 this.$router.push('/admin');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                         else {
-                            alert('Problème lors de l\'ajout de l\'élève');
+                            top.glob.toast('Problème lors de l\'ajout de l\'élève', 'warning');
                         };
                     };
                 });
@@ -305,20 +310,21 @@ const API_URL_MAT = SERV + 'matiere';
                             }
                         });
                         if (repDel.ok) {
-                            alert('Elève supprimé');
+                            top.glob.toast('Elève supprimé', 'success');
                             this.getListeEleves();
                         }
                         else {
                             if (repDel.status == 401) {
-                                    alert('Vous n\'êtes plus connecté');
                                     this.$router.push('/admin');
+									top.glob.toast("Vous n'êtes pas connecté", "info");
                                 }
                             else {
-                                alert('Problème lors de la supression de l\'élève');
+                                top.glob.toast('Problème lors de la supression de l\'élève', 'warning');
                             };
                         };
                     } catch (error) {
                         console.log(error);
+						top.glob.toast('Erreur', 'danger');
                     };
                 };
             },
@@ -338,13 +344,15 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (repProf.status == 401) {
                                 this.$router.push('/admin');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                         else {
-                            alert("Le chargement des donnés n'a pas pu être fait");
+                            top.glob.toast("Le chargement des donnés n'a pas pu être fait", 'danger');
                         };
                     };
                 } catch (error) {
                     console.log(error);
+					top.glob.toast('Erreur', 'danger');
                 }
             },
 
@@ -363,21 +371,22 @@ const API_URL_MAT = SERV + 'matiere';
                 })
                 .then(response => {
                     if (response.ok) {
-                        alert("Prof mis à jour");
+                        top.glob.toast("Prof mis à jour", 'success');
                         this.getListeProfs();
                     }
                     else {
                         if (response.status == 401) {
-                                alert('Vous n\'êtes plus connecté');
                                 this.$router.push('/admin');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                         else {
-                            alert('Problème lors de la mise à jour du professeur');
+                            top.glob.toast('Problème lors de la mise à jour du professeur', 'warning');
                         };
                     };
                 })
                 .catch((err) => {
                     console.log(err);
+					top.glob.toast('Erreur', 'danger');
                 });                    
             },
 
@@ -402,20 +411,21 @@ const API_URL_MAT = SERV + 'matiere';
                             mdp: '',
 							mat: ''
                         };
-                        alert("Professeur ajouté");
+                        top.glob.toast("Professeur ajouté", 'success');
                     }
                     else {
                         if (response.status == 401) {
-                                alert('Vous n\'êtes plus connecté');
                                 this.$router.push('/admin');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                         else {
-                            alert('Problème lors de l\'ajout du professeur (la matière ou le professeur doivent être unique)');
+                            top.glob.toast('Problème lors de l\'ajout du professeur (la matière ou le professeur doivent être unique)', 'warning');
                         };
                     };
                 })
                 .catch((err) => {
                     console.log(err);
+					top.glob.toast('erreur', 'danger');
                 });
             },
 
@@ -431,20 +441,21 @@ const API_URL_MAT = SERV + 'matiere';
                             }
                         });
                         if (repDel.ok) {
-                            alert('Professeur supprimé');
+                            top.glob.toast('Professeur supprimé', 'success');
                             this.getListeProfs();
                         }
                         else {
                             if (repDel.status == 401) {
-                                    alert('Vous n\'êtes plus connecté');
                                     this.$router.push('/admin');
+									top.glob.toast("Vous n'êtes pas connecté", "info");
                                 }
                             else {
-                                alert('Problème lors de la supression du professeur');
+                                top.glob.toast('Problème lors de la supression du professeur', 'warning');
                             };
                         };
                     } catch (error) {
                         console.log(error);
+						top.glob.toast('Erreur', 'danger');
                     };
                 };
             },
@@ -464,13 +475,15 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (repMat.status == 401) {
                                 this.$router.push('/admin');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                         else {
-                            alert("Le chargement des donnés n'a pas pu être fait");
+                            top.glob.toast("Le chargement des donnés n'a pas pu être fait", 'warning');
                         };
                     };
                 } catch (error) {
                     console.log(error);
+					top.glob.toast('Erreur', 'danger');
                 }
             },
 
@@ -487,21 +500,22 @@ const API_URL_MAT = SERV + 'matiere';
                 })
                 .then(response => {
                     if (response.ok) {
-                        alert("Matière mis à jour");
+                        top.glob.toast("Matière mis à jour", 'success');
                         this.getListeMats();
                     }
                     else {
                         if (response.status == 401) {
-                                alert('Vous n\'êtes plus connecté');
                                 this.$router.push('/admin');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                         else {
-                            alert('Problème lors de l\'ajout de la matière');
+                            top.glob.toast('Problème lors de l\'ajout de la matière', 'warning');
                         };
                     };
                 })
                 .catch((err) => {
                     console.log(err);
+					top.glob.toast('Erreur', 'warning');
                 });                    
             },
 
@@ -517,20 +531,21 @@ const API_URL_MAT = SERV + 'matiere';
                             }
                         });
                         if (repDel.ok) {
-                            alert('Matière supprimée');
+                            top.glob.toast('Matière supprimée', 'success');
                             this.getListeMats();
                         }
                         else {
                             if (repDel.status == 401) {
-                                    alert('Vous n\'êtes plus connecté');
                                     this.$router.push('/admin');
+									top.glob.toast("Vous n'êtes pas connecté", "info");
                                 }
                             else {
-                                alert('Problème lors de la supression de la matière');
+                                top.glob.toast('Problème lors de la supression de la matière', 'warning');
                             };
                         };
                     } catch (error) {
                         console.log(error);
+						top.glob.toast('Erreur', 'danger');
                     };
                 };
             },
@@ -550,14 +565,16 @@ const API_URL_MAT = SERV + 'matiere';
                     else {
                         if (repAdmin.status == 401) {
                                 this.$router.push('/admin');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                         else {
                             console.log("Erreur du serveur");
-                            alert("Le chargement des donnés n'a pas pu être fait");
+                            top.glob.toast("Le chargement des donnés n'a pas pu être fait", 'warning');
                         }
                     }
                 } catch (error) {
                     console.log(error);
+					top.glob.toast('Erreur', 'warning');
                 }
             },
 
@@ -575,16 +592,16 @@ const API_URL_MAT = SERV + 'matiere';
                 })
                 .then(response => {
                     if (response.ok) {
-                        alert("Admin mis à jour");
+                        top.glob.toast("Admin mis à jour", 'success');
                         this.getListeAdmins();
                     }
                     else {
                         if (response.status == 401) {
-                                alert('Vous n\'êtes plus connecté');
                                 this.$router.push('/admin');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                         else {
-                            alert('Problème lors de la mise à jour de l\'administrateur');
+                            top.glob.toast('Problème lors de la mise à jour de l\'administrateur', 'warning');
                         }
                     };
                 });
@@ -608,20 +625,21 @@ const API_URL_MAT = SERV + 'matiere';
                             nom: "",
                             mdp: ""
                         };
-                        alert("Administrateur ajouté");
+                        top.glob.toast("Administrateur ajouté", 'success');
                     }
                     else {
                         if (response.status == 401) {
-                                alert('Vous n\'êtes plus connecté');
                                 this.$router.push('/admin');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                         else {
-                            alert('Problème lors de l\'ajout');
+                            top.glob.toast('Problème lors de l\'ajout', 'warning');
                         };
                     };
                 })
                 .catch((err) => {
                     console.log(err);
+					top.glob.toast('Erreur', 'danger');
                 });
             },
 
@@ -637,20 +655,21 @@ const API_URL_MAT = SERV + 'matiere';
                             }
                         });
                         if (repDel.ok) {
-                            alert('Administrateur supprimé');
+                            top.glob.toast('Administrateur supprimé', 'success');
                             this.getListeAdmins();
                         }
                         else {
                             if (repDel.status == 401) {
-                                alert('Vous n\'êtes plus connecté');
                                 this.$router.push('/admin');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                             else {
-                                alert('Problème lors de la supression de l\'administrateur (il doit toujours exister au moins un admin!)');
+                                top.glob.toast('Problème lors de la supression de l\'administrateur (il doit toujours exister au moins un admin!)', 'warning');
                             };
                         };
                     } catch (error) {
                         console.log(error);
+						top.glob.toast('Erreur', 'danger');
                     };
                 };
             },

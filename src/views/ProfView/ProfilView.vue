@@ -27,7 +27,7 @@
 
 <script>
 
-const SERV = top.glob;
+const SERV = top.glob.serv;
 
 const API_URL_PROF = SERV + 'prof';
 
@@ -48,6 +48,7 @@ export default {
             localStorage.removeItem('idProf');
             localStorage.clear();
             this.$router.push('/prof');
+			top.glob.toast("Vous n'êtes pas connecté", "info");
         },
 
         async putProf() {
@@ -64,33 +65,21 @@ export default {
             })
             .then(response => {
                 if (response.ok) {
-                    response.json()
-                    .then(result => {
-                        if (result.details) {
-                            // there was an error...
-                            const error = result.details
-                            .map(detail => detail.prof)
-                            .join(". ");
-                            this.error = error;
-                        } else {
-                            this.error = "";
-                            this.showProfForm = false;
-                            this.profs.push(result);
-                        }
-                    });
+                    top.glob.toast("Professeur mis à jour", "success");
                 }
                 else {
                     if (response.status == 401) {
-                        alert('Vous n\'êtes plus connecté');
                         this.$router.push('/prof');
+						top.glob.toast("Vous n'êtes pas connecté", "info");
                     }
                     else {
-                        alert('Les informations n\'ont pas pu être mises à jour');
+                        top.glob.toast('Les informations n\'ont pas pu être mises à jour', "warning");
                     };
                 };
             })
             .catch((err) => {
                 console.log(err);
+				top.glob.toast("Erreur", "warning");
             });
         },
     },

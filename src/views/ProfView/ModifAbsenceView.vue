@@ -36,7 +36,7 @@
 
 <script>
 
-const SERV = top.glob;;
+const SERV = top.glob.serv;
 const API_URL_ABSENCE = SERV + 'absence';
 const API_URL_ELEVE = SERV + 'eleve';
 
@@ -60,6 +60,7 @@ export default {
             localStorage.removeItem('idProf');
             localStorage.clear();
             this.$router.push('/prof');
+			top.glob.toast("Vous n'êtes pas connecté", "info");
         },
 
         async getListeEleves() {
@@ -77,14 +78,16 @@ export default {
                 else {
                     if (repEleve.status == 401) {
                             this.$router.push('/prof');
+							top.glob.toast("Vous n'êtes pas connecté", "info");
                         }
                     else {
                         console.log("Erreur du serveur");
-                    alert("Le chargement des donnés n'a pas pu être fait");
+                    	top.glob.toast("Le chargement des donnés n'a pas pu être fait", "warning");
                     };
                 };
             } catch (error) {
                 console.log(error);
+				top.glob.toast('Erreur', 'danger');
             }
         },
 
@@ -107,17 +110,17 @@ export default {
                     let data = await repAbsences.json();
                     this.listeAbsence = data.absence;
                     this.showFormAbsence[index] = true;
-                    console.log(this.listeAbsence, this.listeAbsence[0].justification)
                 }
                 else {
                     if (repAbsences.status == 401) {
-                        alert('Vous n\'êtes plus connecté');
                         this.$router.push('/prof');
+						top.glob.toast("Vous n'êtes pas connecté", "info");
                     }
                 };
             }
             catch{
                 console.log("err");
+				top.glob.toast('Erreur', 'danger');
             }
             return false;
         },
@@ -138,20 +141,21 @@ export default {
             })
             .then(response => {
                 if (response.ok) {
-					alert("Absence mis à jour");
+					top.glob.toast("Absence mis à jour", 'success');
                 }
                 else {
                     if (response.status == 401) {
-                            alert('Vous n\'êtes plus connecté');
                             this.$router.push('/prof');
+							top.glob.toast("Vous n'êtes pas connecté", "info");
                         }
                     else {
-                        alert('Problème lors de la mise à jour de l\'absence');
+                        top.glob.toast('Problème lors de la mise à jour de l\'absence', 'warning');
                     };
                 };
             })
             .catch((err) => {
                 console.log(err);
+				top.glob.toast('Erreur', 'danger');
             })
         },
 
@@ -167,20 +171,21 @@ export default {
                             }
                         });
                         if (repDel.ok) {
-                            alert('Absence supprimée');
+                            top.glob.toast('Absence supprimée', 'success');
                             this.getAllAbsencesByEleve(idEleve, index);
                         }
                         else {
                             if (repDel.status == 401) {
-                                    alert('Vous n\'êtes plus connecté');
                                     this.$router.push('/prof');
+									top.glob.toast("Vous n'êtes pas connecté", "info");
                                 }
                             else {
-                                alert('Problème lors de la supression de l\'absence');
+                                top.glob.toast('Problème lors de la supression de l\'absence', 'warning');
                             };
                         };
                     } catch (error) {
                         console.log(error);
+						top.glob.toast('Erreur', 'danger');
                     };
                 };
             },

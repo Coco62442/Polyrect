@@ -19,7 +19,7 @@
 
 <script>
 
-const SERV = top.glob;;
+const SERV = top.glob.serv;
 const API_URL_ADMIN = SERV + 'admin';
 
 export default {
@@ -35,6 +35,7 @@ export default {
             localStorage.removeItem('idAdmin');
             localStorage.clear();
             this.$router.push('/admin');
+			top.glob.toast("Vous êtes connecté", "info");
         },
 
         async putAdmin() {
@@ -51,20 +52,21 @@ export default {
             })
             .then(response => {
                 if (response.ok) {
-                    alert('Informations mises à jour!');
+                    top.glob.toast('Informations mises à jour!', 'success');
                 }
                 else {
                     if (response.status == 401) {
-                            alert('Vous n\'êtes plus connecté');
                             this.$router.push('/admin');
+							top.glob.toast("Vous n'êtes pas connecté", "info");
                         }
                     else {
-                        alert('Problème lors de la mise à jour de l\'administrateur');
+                        top.glob.toast('Problème lors de la mise à jour de l\'administrateur', 'warning');
                     };
                 };
             })
             .catch((err) => {
                 console.log(err);
+				top.glob.toast('Erreur', 'danger');
             });
         }
     }

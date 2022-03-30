@@ -42,7 +42,7 @@
 
 <script>
 
-    const SERV = top.glob;;
+    const SERV = top.glob.serv;
 
     const API_URL_MAT = SERV + 'matiere';
     const API_URL_NOTE = SERV + 'note';
@@ -97,6 +97,7 @@
                 localStorage.removeItem('idEleve');
                 localStorage.clear();
                 this.$router.push('/eleve');
+				top.glob.toast("Vous n'êtes pas connecté", "info");
             },
 
             async getListMatieres() {
@@ -114,14 +115,16 @@
                     else {
                         if (repMatiere.status == 401) {
                                 this.$router.push('/eleve');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                         else {
                             console.log("Erreur du serveur");
-                            alert("Le chargement des donnés n'a pas pu être fait");
+                            top.glob.toast("Le chargement des donnés n'a pas pu être fait", "warning");
                         };
                     };
                 } catch (error) {
                     console.log(err);
+					top.glob.toast('Erreur', 'danger');
                 }
             },
 
@@ -141,14 +144,16 @@
                         else {
                             if (repNote.status == 401) {
                                     this.$router.push('/eleve');
+									top.glob.toast("Vous n'êtes pas connecté", "info");
                                 }
                             else {
-                                alert('Problème du serveur');
+                                top.glob.toast('Problème du serveur', 'warning');
                             };
                         };
                     }
                     catch{
                         console.log("err");
+						top.glob.toast('Erreur', 'danger');
                     }
                 }
             },
@@ -167,17 +172,17 @@
                 })
                 .then(response => {
                     if (response.ok) {
-                        alert('Informations mise à jour');
+                        top.glob.toast('Informations mise à jour', 'success');
 						this.emailPut = '';
 						this.mdpPut = '';
                     }
                     else {
                         if (response.status == 401) {
-                                alert('Vous n\'êtes plus connecté');
                                 this.$router.push('/eleve');
+								top.glob.toast("Vous n'êtes pas connecté", "info");
                             }
                         else {
-                            alert('Problème lors de la mise à jour de l\'élève');
+                            top.glob.toast('Problème lors de la mise à jour de l\'élève', 'warning');
                         };
                     };
                 });
@@ -205,15 +210,16 @@
                     }
                     else {
                         if (repAbsence.status == 401) {
-							alert('Vous n\'êtes plus connecté');
 							this.$router.push('/eleve');
+							top.glob.toast("Vous n'êtes pas connecté", "info");
 						}
                         else {
-                            alert('Problème du serveur');
+                            top.glob.toast('Problème du serveur', 'warning');
                         };
                     };
                 } catch (error) {
                     console.log(error);
+					top.glob.toast('Erreur', 'danger');
                 }
             }
         },

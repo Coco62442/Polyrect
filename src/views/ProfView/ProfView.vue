@@ -28,10 +28,11 @@
 
 <script>
 
-const SERV = top.glob;
+const SERV = top.glob.serv;
 const API_URL_ELEVE = SERV + 'eleve';
 const API_URL_MAT = SERV + 'matiere';
 const API_URL_NOTE = SERV + 'note';
+
 
 
 export default {
@@ -71,14 +72,16 @@ export default {
                 else {
                     if (repEleve.status == 401) {
                         this.$router.push('/prof');
+						top.glob.toast("Vous n'êtes pas connecté", "info");
                     }
                     else {
                         console.log("Erreur du serveur");
-                        alert("Le chargement des donnés n'a pas pu être fait");
+                        top.glob.toast("Le chargement des donnés n'a pas pu être fait", "danger");
                     };
                 };
             } catch (error) {
                 console.log(error);
+				top.glob.toast("Erreur", "danger");
             }
         },
 
@@ -97,14 +100,16 @@ export default {
                 else {
                     if (repMat.status == 401) {
                         this.$router.push('/prof');
+						top.glob.toast("Vous n'êtes pas connecté", "info");
                     }
                     else {
                         console.log("Erreur du serveur");
-                        alert("Le chargement des donnés n'a pas pu être fait");
+                        top.glob.toast("Le chargement des donnés n'a pas pu être fait", "warning");
                     };
                 };
             } catch (error) {
                 console.log(error);
+				top.glob.toast("Erreur", "danger");
             }
         },
 
@@ -130,8 +135,8 @@ export default {
                     }
                     else {
                         if (repNote.status == 401) {
-                            alert('Vous n\'êtes plus connecté');
                             this.$router.push('/prof');
+							top.glob.toast("Vous n'êtes pas connecté", "info");
                         }
                         else {
                             problem += 1;
@@ -139,13 +144,14 @@ export default {
                     }
                 } catch (erreur) {
                     console.log(erreur);
+					top.glob.toast("Erreur", "danger");
                 };
             };
             if (problem) {
-                alert("Problème de création là où le formulaire n'est pas vide");
+                top.glob.toast("Problème de création là où le formulaire n'est pas vide", "warning");
             }
             else {
-                alert("Enregistrement efféctué avec succès!");
+                top.glob.toast("Enregistrement efféctué avec succès!", "default");
                 this.num = "";
             };
         }

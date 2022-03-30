@@ -32,7 +32,7 @@
 </template>
 
 <script>
-const SERV = top.glob;
+const SERV = top.glob.serv;
 const API_URL_ELEVE = SERV + 'eleve';
 const API_URL_MAT = SERV + 'matiere';
 const API_URL_NOTE = SERV + 'note';
@@ -59,6 +59,7 @@ const API_URL_NOTE = SERV + 'note';
                 localStorage.removeItem('idProf');
                 localStorage.clear();
                 this.$router.push('/prof');
+				top.glob.toast("Vous n'êtes pas connecté", "info");
             },
 
             async getListeEleves() {
@@ -76,14 +77,16 @@ const API_URL_NOTE = SERV + 'note';
                     else {
                         if (repEleve.status == 401) {
                             this.$router.push('/prof');
+							top.glob.toast("Vous n'êtes pas connecté", "info");
                         }
                         else {
                             console.log("Erreur du serveur");
-                        alert("Le chargement des donnés n'a pas pu être fait");
+                        	top.glob.toast("Le chargement des donnés n'a pas pu être fait", "warning");
                         };
                     };
                 } catch (error) {
                     console.log(error);
+					top.glob.toast("Erreur", "danger");
                 }
             },
 
@@ -108,14 +111,16 @@ const API_URL_NOTE = SERV + 'note';
                     else {
                         if (repMat.status == 401) {
                             this.$router.push('/prof');
+							top.glob.toast("Vous n'êtes pas connecté", "info");
                         }
                         else {
                             console.log("Erreur du serveur");
-                            alert("Le chargement des donnés n'a pas pu être fait");
+                            top.glob.toast("Le chargement des donnés n'a pas pu être fait", "warning");
                         };
                     };
                 } catch (error) {
                     console.log(error);
+					top.glob.toast("Erreur", "danger");
                 }
             },
 
@@ -135,19 +140,19 @@ const API_URL_NOTE = SERV + 'note';
                     }
                     else {
                         if (repNote.status == 401) {
-                            alert('Vous n\'êtes plus connecté');
                             this.$router.push('/prof');
+							top.glob.toast("Vous n'êtes pas connecté", "info");
                         }
                     };
                 }
                 catch{
                     console.log("err");
+					top.glob.toast("Erreur", "danger");
                 }
                 return false;
             },
 
             async putNote(id, note, num) {
-                console.log(id,note,num)
                 await fetch(API_URL_NOTE + '/' + id, {
                     method: "PUT",
                     body: JSON.stringify({
@@ -161,20 +166,21 @@ const API_URL_NOTE = SERV + 'note';
                 })
                 .then(response => {
                     if (response.ok) {
-						alert("Note mis à jour");
+						top.glob.toast("Note mis à jour", "success");
                     }
                     else {
                         if (response.status == 401) {
-                            alert('Vous n\'êtes plus connecté');
                             this.$router.push('/prof');
+							top.glob.toast("Vous n'êtes pas connecté", "info");
                         }
                         else {
-                            alert('Problème lors de la mise à jour de la note');
+                            top.glob.toast('Problème lors de la mise à jour de la note', 'warning');
                         };
                     };
                 })
                 .catch((err) => {
                     console.log(err);
+					top.glob.toast("Erreur", "danger");
                 })
             },
 
@@ -190,20 +196,21 @@ const API_URL_NOTE = SERV + 'note';
                             }
                         });
                         if (repDel.ok) {
-                            alert('Note supprimée');
+                            top.glob.toast('Note supprimée', 'success');
                             this.getAllNotesByEleve(idEleve, index);
                         }
                         else {
                             if (repDel.status == 401) {
-                                    alert('Vous n\'êtes plus connecté');
                                     this.$router.push('/prof');
+									top.glob.toast("Vous n'êtes pas connecté", "info");
                                 }
                             else {
-                                alert('Problème lors de la supression de la note');
+                                top.glob.toast('Problème lors de la supression de la note', 'warning');
                             };
                         };
                     } catch (error) {
                         console.log(error);
+						top.glob.toast('Erreur', 'danger');
                     };
                 };
             },

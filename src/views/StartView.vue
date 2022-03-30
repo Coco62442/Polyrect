@@ -1,14 +1,11 @@
 <template>
-
-    <div>
-        <nav>
-            <router-link to="/">Home</router-link>
-            <router-link to="/about">About</router-link>
-        </nav>
-        <button class="start" v-on:click='eleve()'>Eleve</button>
-        <button class="start" v-on:click='prof()'>Professeur</button>
-        <button class="start" v-on:click='admin()'>Admin</button>
-    </div>
+	<nav>
+		<router-link to="/">Home</router-link>
+		<router-link to="/about">About</router-link>
+	</nav>
+	<button class="start" v-on:click='eleve()'>Eleve</button>
+	<button class="start" v-on:click='prof()'>Professeur</button>
+	<button class="start" v-on:click='admin()'>Admin</button>
 </template>
         
 

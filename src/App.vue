@@ -1,12 +1,28 @@
 <template>
-	<div>
-		
-		<router-view/>
-	</div>
+	<router-view/>
 </template>
 
 <script>
-	top.glob = 'http://localhost:4000/';
+import { defineComponent } from 'vue'
+import { createToast } from 'mosha-vue-toastify';
+import 'mosha-vue-toastify/dist/style.css'
+
+export default defineComponent({
+  name: 'HelloWorld',
+  setup () {
+    const toast = (message, type) => {
+        createToast(message, {
+			type: type
+		})
+    }
+	top.glob = {
+		'serv': 'https://polyrecte-serveur.herokuapp.com/',
+		'toast': toast
+	};
+    return { toast }
+  }
+
+})
 </script>
 <style>
 #app {

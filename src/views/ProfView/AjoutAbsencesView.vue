@@ -42,7 +42,7 @@
 
 <script>
 
-const SERV = top.glob;
+const SERV = top.glob.serv;
 const API_URL_ELEVE = SERV + 'eleve';
 const API_URL_ABSENCE = SERV + 'absence';
 
@@ -68,6 +68,7 @@ export default {
             localStorage.removeItem('idProf');
             localStorage.clear();
             this.$router.push('/prof');
+			top.glob.toast("Vous n'êtes pas connecté", "info");
         },
 
         async getListeEleves() {
@@ -85,14 +86,16 @@ export default {
                 else {
                     if (repEleve.status == 401) {
                             this.$router.push('/prof');
+							top.glob.toast("Vous n'êtes pas connecté", "info");
                         }
                     else {
                         console.log("Erreur du serveur");
-                    alert("Le chargement des donnés n'a pas pu être fait");
+                    	top.glob.toast("Le chargement des donnés n'a pas pu être fait", "warning");
                     };
                 };
             } catch (error) {
                 console.log(error);
+				top.glob.toast('Erreur', 'danger');
             }
         },
 
@@ -126,16 +129,17 @@ export default {
                 }
                 else {
                     if (repAbsences.status == 401) {
-                            alert('Vous n\'êtes plus connecté');
                             this.$router.push('/prof');
+							top.glob.toast("Vous n'êtes pas connecté", "info");
                         }
                     else {
-                        alert('Erreur lors de la récupération des données');
+                        top.glob.toast('Erreur lors de la récupération des données', 'danger');
                     };
                 };
             }
             catch{
                 console.log("err");
+				top.glob.toast('Erreur', 'danger');
             }
             return false;
         },
@@ -160,19 +164,20 @@ export default {
                     this.justifie = '';
                     this.date = '';
                     this.getAllAbsencesByEleve(id, index)
-                    alert("Absence ajouté à l'élève")
+                    top.glob.toast("Absence ajouté à l'élève", "success");
                 }
                 else {
                     if (repAbsence.status == 401) {
-                            alert('Vous n\'êtes plus connecté');
                             this.$router.push('/prof');
+							top.glob.toast("Vous n'êtes pas connecté", "info");
                         }
                     else {
-                        alert('Erreur lors de la création de l\'absence');
+                        top.glob.toast('Erreur lors de la création de l\'absence', 'warning');
                     };
                 };
             } catch (error) {
                 console.log(error);
+				top.glob.toast('Erreur', 'danger');
             }
         }
     }

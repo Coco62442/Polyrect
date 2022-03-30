@@ -23,7 +23,7 @@
 
 <script>
 
-    const SERV = top.glob;
+    const SERV = top.glob.serv;
 	const API_URL = SERV + 'prof';
 
     export default {
@@ -47,15 +47,16 @@
                     if (repProfLogin.ok) {
                     repProfLogin = await repProfLogin.json();
                     this.$router.push('./loginProf');
+					top.glob.toast("Vous êtes connecté", "info");
                     localStorage.setItem('idProf', repProfLogin._id);
                     localStorage.setItem('tokenProf', repProfLogin.token);
                     }
                     else {
-                    alert('Mot de passe ou identifiant incorrect');
+                    top.glob.toast('Mot de passe ou identifiant incorrect', 'default');
                     }
                 }
                 catch {
-                    alert('Erreur du serveur');
+                    top.glob.toast('Erreur du serveur');
                 }
             },
         }

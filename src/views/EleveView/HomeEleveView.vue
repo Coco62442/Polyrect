@@ -25,7 +25,7 @@
 
 <script>
 
-const SERV = top.glob;
+const SERV = top.glob.serv;
 const API_URL = SERV + 'eleve';
 
 export default {
@@ -57,16 +57,17 @@ export default {
         if (repEleveLogin.ok) {
           repEleveLogin = await repEleveLogin.json();
           this.$router.push('./loginEleve');
+		  top.glob.toast("Vous êtes connecté", "info");
           localStorage.clear();
           localStorage.setItem('idEleve', repEleveLogin._id);
           localStorage.setItem('tokenEleve', repEleveLogin.token);
         }
         else {
-          alert('Mot de passe ou identifiant incorrect');
+          top.glob.toast('Mot de passe ou identifiant incorrect', 'default');
         }
       }
       catch {
-        alert('Erreur du serveur');
+        top.glob.toast('Erreur du serveur', 'warning');
       }
     },
   }

@@ -21,7 +21,7 @@
 </template>
 
 <script>
-	const SERV = top.glob;
+	const SERV = top.glob.serv;
     const API_URL = SERV + 'admin';
 
     export default {
@@ -44,15 +44,16 @@
                     if (repAdminLogin.ok) {
                         repAdminLogin = await repAdminLogin.json();
                         this.$router.push('./loginAdmin');
+						top.glob.toast("Vous êtes connecté", "info");
                         localStorage.setItem('idAdmin', repAdminLogin._id);
                         localStorage.setItem('tokenAdmin', repAdminLogin.token);
                     }
                     else {
-                        alert('Mot de passe ou identifiant incorrect');
+                        top.glob.toast('Mot de passe ou identifiant incorrect', 'default');
                     }
                 }
                 catch {
-                    alert('Erreur du serveur');
+                    top.glob.toast('Erreur du serveur', 'danger');
                 }
             },
         }

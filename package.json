@@ -2,6 +2,9 @@
   "name": "polyrecte",
   "version": "1.0.0",
   "description": "## Project setup ``` npm install ```",
+  "engines": {
+	  "node": "16.13.2"
+  },
   "main": "server.js",
   "scripts": {
     "serve": "vue-cli-service serve",
